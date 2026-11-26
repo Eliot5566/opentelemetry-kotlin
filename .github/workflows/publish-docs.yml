@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+  pull_request: # TEST ONLY: fork CI check of the docs build
 
 permissions: {}
 
@@ -47,6 +48,7 @@ jobs:
           path: build/dokka/html
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
